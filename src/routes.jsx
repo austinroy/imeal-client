@@ -7,6 +7,7 @@ import SignUp from './components/SignUp';
 import jwt from 'jsonwebtoken';
 import AddMeal from './components/AddMeal';
 import UpdateMeal from './components/UpdateMeal';
+import GetStarted from './components/GetStarted';
 
 
 
@@ -25,6 +26,7 @@ const loggedIn = () => {
 const Routes = () => (
     <App>
         <Switch>
+            <Route exact path="/" component={GetStarted} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
             <Route exact path="/meals" render={(props) => (!loggedIn() ? ( <Redirect to="/login"/> ): (<Meals {...props} />))} />
