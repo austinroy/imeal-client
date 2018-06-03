@@ -25,8 +25,8 @@ class NavBar extends Component {
 
     return (
       <Menu stackable>
-        <Menu.Item>
-          <img src={logo} alt="logo"/>
+        <Menu.Item href="/meals">
+          <img src={logo} alt="logo" />
         </Menu.Item>
 
         <Menu.Item
