@@ -9,7 +9,7 @@ class GetStarted extends React.Component{
     return(
       <div>
         <Header as='h2' icon style={{ margin : '0 auto', width : '100%', paddingTop: '100px' }}>
-            <Icon name='settings' />
+            <Icon name='food' />
             Get Started
             <Header.Subheader>
                 Welcome to the iMeal App
