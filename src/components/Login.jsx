@@ -2,6 +2,9 @@ import React from 'react';
 import { Card } from 'semantic-ui-react';
 import { Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
+import config from '../config';
+
+const API_URL = config.API_URL;
 
 class LogIn extends React.Component{
     state = {
@@ -16,7 +19,7 @@ class LogIn extends React.Component{
     submitLogin = (state) => {
         const { username, password } = this.state;
 
-        axios.post("http://localhost:8080/login", {
+        axios.post(`${API_URL}/login`, {
             username,
             password
           })
@@ -41,6 +44,8 @@ class LogIn extends React.Component{
                 <Form.Input fluid label='Password' placeholder='Password' type='password' onChange={this.handleChange('password')} />
             </Form.Group>
             <Button  color='blue' type='submit'onClick={this.submitLogin}>Submit</Button>
+            <br/>
+            No Account? <a href="/signup"> Sign Up</a>
             </Form>
             </Card >
         </div>

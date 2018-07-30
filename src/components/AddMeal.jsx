@@ -2,7 +2,9 @@ import React from 'react';
 import { Card, Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import config from '../config';
 
+const API_URL = config.API_URL;
 class AddMeal extends React.Component{
   state = {
     name : '',
@@ -21,7 +23,7 @@ class AddMeal extends React.Component{
     const userData = jwt.decode(token);
     const { id } = userData;
 
-    axios.post(`http://localhost:8080/${id}/meals`,{
+    axios.post(`${API_URL}/${id}/meals`,{
       token,
       name,
       category,

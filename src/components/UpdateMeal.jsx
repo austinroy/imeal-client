@@ -2,7 +2,9 @@ import React from 'react';
 import { Card, Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import config from '../config';
 
+const API_URL = config.API_URL;
 class UpdateMeal extends React.Component{
   state = {
     name : '',
@@ -15,11 +17,13 @@ class UpdateMeal extends React.Component{
   }
 
   updateMeal = (fetchedMeal) => {
+      const { name, category, amount} = fetchedMeal;
       this.setState({
-          name : fetchedMeal.name,
-          category : fetchedMeal.category,
-          amount : fetchedMeal.amount
+          name : name,
+          category : category,
+          amount : amount
       })
+      console.log(this.state);
   }
 
   submitMeal = () => {
@@ -29,8 +33,10 @@ class UpdateMeal extends React.Component{
     const userData = jwt.decode(token);
     const { id } = userData;
     const meal_id = this.props.match.params.meal_id;
+    const API_URL = config.API_URL;
+    console.log(config);
 
-    axios.put(`http://localhost:8080/${id}/meals/${meal_id}`,{
+    axios.put(`${API_URL}/${id}/meals/${meal_id}`,{
       token,
       name,
       category,
@@ -46,13 +52,14 @@ class UpdateMeal extends React.Component{
   }
   
   fetchMeal = () => {
+    const API_URL = config.API_URL;
     const token = localStorage.getItem('token');
     const userData = jwt.decode(token);
     const { id } = userData;
     const meal_id = this.props.match.params.meal_id;
     
 
-    axios.get(`http://localhost:8080/${id}/meals/${meal_id}`,{
+    axios.get(`${API_URL}/${id}/meals/${meal_id}`,{
       headers : {
         'x-access-token' : token
       }
@@ -78,9 +85,9 @@ class UpdateMeal extends React.Component{
             <header style= {{ padding : '2em' }}><h1>Update Meal</h1></header>
             <Form style= {{ padding : '2em' }}>
             <Form.Group widths='equal'>
-                <Form.Input fluid label='Name' placeholder='Name' onChange={this.handleChange('name')}/>
-                <Form.Input fluid label='Category' placeholder='Category' onChange={this.handleChange('category')}/>
-                <Form.Input fluid label='Amount' placeholder='Amount' onChange={this.handleChange('amount')}/>
+                <Form.Input fluid label='Name' value={this.state.name} onChange={this.handleChange('name')}/>
+                <Form.Input fluid label='Category' value={this.state.category} onChange={this.handleChange('category')}/>
+                <Form.Input fluid label='Amount' value={this.state.amount} onChange={this.handleChange('amount')}/>
             </Form.Group>
             <Button  color='blue' type='submit'onClick={this.submitMeal}>Submit</Button>
             </Form>

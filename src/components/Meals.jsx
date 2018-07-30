@@ -3,6 +3,9 @@ import { Card, Table, Icon, Tab, Button } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+import config from '../config';
+
+const API_URL = config.API_URL;
 
 class Meals extends React.Component{
   state = {
@@ -20,7 +23,7 @@ class Meals extends React.Component{
     const { id } = userData;
     console.log(id);
 
-    axios.delete(`http://localhost:8080/${id}/meals/${mealid}`,{
+    axios.delete(`${API_URL}/${id}/meals/${mealid}`,{
       headers : {
         'x-access-token': token
       }

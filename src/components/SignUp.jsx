@@ -2,6 +2,9 @@ import React from 'react';
 import { Card } from 'semantic-ui-react';
 import { Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
+import config  from '../config';
+
+const API_URL = config.API_URL;
 
 class SignUp extends React.Component{
     state = {
@@ -16,7 +19,7 @@ class SignUp extends React.Component{
     submitSignUp = (state) => {
         const { username, password} = this.state;
 
-        axios.post("http://localhost:8080/signup", {
+        axios.post(`${API_URL}/signup`, {
             username,
             password
           })
