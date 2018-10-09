@@ -4,7 +4,7 @@ import { Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import config  from '../config';
 
-const API_URL = config.API_URL;
+const API_URL = config.REACT_APP_API_URL;
 
 class SignUp extends React.Component{
     state = {

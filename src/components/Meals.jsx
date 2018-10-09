@@ -4,8 +4,9 @@ import {Link} from 'react-router-dom';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import { confirmAlert } from 'react-confirm-alert';
 
-const API_URL = config.API_URL;
+const API_URL = config.REACT_APP_API_URL;
 
 class Meals extends React.Component{
   state = {
@@ -15,6 +16,23 @@ class Meals extends React.Component{
 
   updateMeals = (newMeals) => {
     this.setState({ meals : newMeals });
+  }
+
+  delete = mealid => {
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you want to delete this?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.deleteMeal(mealid)
+        },
+        {
+          label: 'No',
+          onClick: () => alert("Changes not saved")
+        }
+      ]
+    })
   }
 
   deleteMeal = mealid => {
@@ -63,7 +81,7 @@ class Meals extends React.Component{
                   <Table.Cell>{meal.amount}</Table.Cell>
                   <Table.Cell>{meal.timeEaten}</Table.Cell>
                   <Table.Cell><a href={update_url} ><Icon name="edit" /></a></Table.Cell>
-                  <Table.Cell onClick={() => this.deleteMeal(meal._id)}><Icon name="delete" /></Table.Cell>
+                  <Table.Cell onClick={() => this.delete(meal._id)}><Icon name="delete" /></Table.Cell>
                 </Table.Row>
               )
             })}
@@ -78,7 +96,7 @@ class Meals extends React.Component{
     const { id } = userData;
     
 
-    axios.get(`http://localhost:8080/${id}/meals`,{
+    axios.get(`${API_URL}/${id}/meals`,{
       headers : {
         'x-access-token' : token
       }
@@ -99,8 +117,9 @@ class Meals extends React.Component{
   render(){
     const { meals } = this.state;
     return(
-      <div style={{ margin : '0 auto', alignItems: 'centre', width: '100%', margin: '0 auto' }} >
+      <div style={{ margin : '0 auto', alignItems: 'centre', width: '100%', margin: '0 auto', textAlign: 'center' }} >
         <header><h3>Meals</h3></header>
+        <br/>
         {this.MealsTable(meals)}
       </div>
     )

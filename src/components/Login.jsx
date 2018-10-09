@@ -4,7 +4,7 @@ import { Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import config from '../config';
 
-const API_URL = config.API_URL;
+const API_URL = config.REACT_APP_API_URL;
 
 class LogIn extends React.Component{
     state = {
@@ -34,6 +34,7 @@ class LogIn extends React.Component{
     }
 
     render(){
+        console.log(config);
         return(
         <div color='blue' className="container" >
             <Card style={{margin : '0 auto', width : '50%'}} >

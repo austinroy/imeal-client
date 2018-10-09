@@ -1,15 +1,19 @@
 import React from 'react';
-import { Card, Form, Button } from 'semantic-ui-react';
+import { Card, Form, Button, Modal, Header, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 
-const API_URL = config.API_URL;
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css' 
+
+const API_URL = config.REACT_APP_API_URL;
 class UpdateMeal extends React.Component{
   state = {
     name : '',
     category : '',
-    amount : ''
+    amount : '',
+    openModal : false
   }
 
   handleChange = input => event => {
@@ -26,6 +30,23 @@ class UpdateMeal extends React.Component{
       console.log(this.state);
   }
 
+  submit = () => {
+    confirmAlert({
+      title: 'Confirm to submit',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => this.submitMeal()
+        },
+        {
+          label: 'No',
+          onClick: () => alert("Changes not saved")
+        }
+      ]
+    })
+  };
+
   submitMeal = () => {
     const { name, category, amount } = this.state;
 
@@ -33,7 +54,6 @@ class UpdateMeal extends React.Component{
     const userData = jwt.decode(token);
     const { id } = userData;
     const meal_id = this.props.match.params.meal_id;
-    const API_URL = config.API_URL;
     console.log(config);
 
     axios.put(`${API_URL}/${id}/meals/${meal_id}`,{
@@ -52,7 +72,6 @@ class UpdateMeal extends React.Component{
   }
   
   fetchMeal = () => {
-    const API_URL = config.API_URL;
     const token = localStorage.getItem('token');
     const userData = jwt.decode(token);
     const { id } = userData;
@@ -80,7 +99,7 @@ class UpdateMeal extends React.Component{
   render(){
     return(
       <div>
-        <div color='blue' className="container" >
+        <div color='blue' className="container centered" >
             <Card style={{margin : '0 auto', width : '75%'}} >
             <header style= {{ padding : '2em' }}><h1>Update Meal</h1></header>
             <Form style= {{ padding : '2em' }}>
@@ -89,7 +108,7 @@ class UpdateMeal extends React.Component{
                 <Form.Input fluid label='Category' value={this.state.category} onChange={this.handleChange('category')}/>
                 <Form.Input fluid label='Amount' value={this.state.amount} onChange={this.handleChange('amount')}/>
             </Form.Group>
-            <Button  color='blue' type='submit'onClick={this.submitMeal}>Submit</Button>
+            <Button  color='blue' onClick={this.submit}>Submit</Button>
             </Form>
             </Card >
         </div>

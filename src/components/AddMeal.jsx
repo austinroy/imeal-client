@@ -4,7 +4,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 
-const API_URL = config.API_URL;
+const API_URL = config.REACT_APP_API_URL;
 class AddMeal extends React.Component{
   state = {
     name : '',
@@ -41,7 +41,7 @@ class AddMeal extends React.Component{
   render(){
     return(
       <div>
-        <div color='blue' className="container" >
+        <div color='blue' className="container centered" >
             <Card style={{margin : '0 auto', width : '75%'}} >
             <header style= {{ padding : '2em' }}><h1>Add Meal</h1></header>
             <Form style= {{ padding : '2em' }}>
