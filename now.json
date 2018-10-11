@@ -1,0 +1,6 @@
+{
+    "env": {
+      "REACT_APP_API_URL": "https://imeal-api.herokuapp.com",
+      "MY_API_TOKEN": "XXXXX"
+    }
+  }
