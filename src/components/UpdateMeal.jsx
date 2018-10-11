@@ -3,6 +3,7 @@ import { Card, Form, Button, Modal, Header, Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import Notifications, {notify} from 'react-notify-toast';
 
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css' 
@@ -33,7 +34,7 @@ class UpdateMeal extends React.Component{
   submit = () => {
     confirmAlert({
       title: 'Confirm to submit',
-      message: 'Are you sure to do this.',
+      message: 'Are you sure you want to update this?',
       buttons: [
         {
           label: 'Yes',
@@ -67,6 +68,7 @@ class UpdateMeal extends React.Component{
       window.location.replace('/meals');
     })
     .catch(function (error) {
+      notify.show("Error saving changes", "error");
       console.log(error);
     });
   }
@@ -100,6 +102,7 @@ class UpdateMeal extends React.Component{
     return(
       <div>
         <div color='blue' className="container centered" >
+            <Notifications />
             <Card style={{margin : '0 auto', width : '75%'}} >
             <header style= {{ padding : '2em' }}><h1>Update Meal</h1></header>
             <Form style= {{ padding : '2em' }}>

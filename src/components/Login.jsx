@@ -3,6 +3,7 @@ import { Card } from 'semantic-ui-react';
 import { Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import config from '../config';
+import Notifications, {notify} from 'react-notify-toast';
 
 const API_URL = config.REACT_APP_API_URL;
 
@@ -30,6 +31,7 @@ class LogIn extends React.Component{
           })
           .catch(function (error) {
             console.log(error);
+            return notify.show("Error signing in, check your credentials", 'error');
           });
     }
 
@@ -37,6 +39,7 @@ class LogIn extends React.Component{
         console.log(config);
         return(
         <div color='blue' className="container" >
+            <Notifications />
             <Card style={{margin : '0 auto', width : '50%'}} >
             <header style= {{ padding : '2em' }}><h1>Log In</h1></header>
             <Form style= {{ padding : '2em' }}>

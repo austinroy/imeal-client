@@ -5,6 +5,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import config from '../config';
 import { confirmAlert } from 'react-confirm-alert';
+import Notifications, {notify} from 'react-notify-toast';
 
 const API_URL = config.REACT_APP_API_URL;
 
@@ -50,6 +51,7 @@ class Meals extends React.Component{
       window.location.reload()
     })
     .catch(function (error) {
+      notify.show('Error deleting meal', "error");
       console.log(error);
     });
   }
@@ -106,6 +108,7 @@ class Meals extends React.Component{
       this.updateMeals(fetchedMeals);
     })
     .catch(function (error) {
+      notify.show('Error fetching meals', "error");
       console.log(error);
     });
   }
@@ -119,6 +122,7 @@ class Meals extends React.Component{
     return(
       <div style={{ margin : '0 auto', alignItems: 'centre', width: '100%', margin: '0 auto', textAlign: 'center' }} >
         <header><h3>Meals</h3></header>
+        <Notifications />
         <br/>
         {this.MealsTable(meals)}
       </div>

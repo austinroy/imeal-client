@@ -3,6 +3,7 @@ import { Card, Form, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import Notifications, {notify} from 'react-notify-toast';
 
 const API_URL = config.REACT_APP_API_URL;
 class AddMeal extends React.Component{
@@ -34,6 +35,7 @@ class AddMeal extends React.Component{
       window.location.replace('/meals');
     })
     .catch(function (error) {
+      notify.show("Error adding meal", "error");
       console.log(error);
     });
   }
@@ -42,6 +44,7 @@ class AddMeal extends React.Component{
     return(
       <div>
         <div color='blue' className="container centered" >
+            <Notifications />
             <Card style={{margin : '0 auto', width : '75%'}} >
             <header style= {{ padding : '2em' }}><h1>Add Meal</h1></header>
             <Form style= {{ padding : '2em' }}>
