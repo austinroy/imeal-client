@@ -14,6 +14,18 @@ class Meals extends React.Component{
     meals: []
   }
 
+  rateMeal = (meal) => {
+    const { ratings } = meal;
+    let totalRating = 0;
+    ratings.forEach(rating => {
+      totalRating += rating.rating
+    })
+    if(ratings.length < 1){
+      return( <Rating icon='star' defaultRating={0} maxRating={5} disabled /> )
+    }
+    const averageRating = totalRating/ratings.length;
+    return( <Rating icon='star' defaultRating={averageRating} maxRating={5} disabled /> )
+  }
 
   updateMeals = (newMeals) => {
     this.setState({ meals : newMeals });
@@ -48,13 +60,13 @@ class Meals extends React.Component{
             <Table.HeaderCell>Category</Table.HeaderCell>
             <Table.HeaderCell>Amount</Table.HeaderCell>
             <Table.HeaderCell>Time Eaten</Table.HeaderCell>
-            <Table.HeaderCell>Rate</Table.HeaderCell>
+            <Table.HeaderCell>Rating</Table.HeaderCell>
             <Table.HeaderCell></Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {meals.map(meal => {
-              const update_url = `/updatemeal/${meal._id}`;
+              const rateUrl = `/ratemeal/${meal._id}`;
               return(
                 <Table.Row key={meal._id}>   
                   <Table.Cell ></Table.Cell>
@@ -63,8 +75,9 @@ class Meals extends React.Component{
                   <Table.Cell>{meal.amount}</Table.Cell>
                   <Table.Cell>{meal.timeEaten}</Table.Cell>
                   <Table.Cell>
-                    <Rating maxRating={5} onRate={this.handleRate} />
-                </Table.Cell>
+                    {this.rateMeal(meal)}
+                  </Table.Cell>
+                  <Table.Cell> <a href={rateUrl}>Rate this meal</a> </Table.Cell>
                 </Table.Row>
               )
             })}
@@ -104,7 +117,7 @@ class Meals extends React.Component{
     const { meals } = this.state;
     return(
       <div style={{ margin : '0 auto', alignItems: 'centre', width: '100%', margin: '0 auto', textAlign: 'center' }} >
-        <header><h3>Meals</h3></header>
+        <header><h3>Discover Meals</h3></header>
         <Notifications />
         <br/>
         {this.MealsTable(meals)}
