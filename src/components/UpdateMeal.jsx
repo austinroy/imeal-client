@@ -26,11 +26,12 @@ class UpdateMeal extends React.Component{
   }
 
   updateMeal = (fetchedMeal) => {
-      const { name, category, amount} = fetchedMeal;
+      const { name, category, amount, visible } = fetchedMeal;
       this.setState({
           name : name,
           category : category,
-          amount : amount
+          amount : amount,
+          visible: visible
       })
   }
 

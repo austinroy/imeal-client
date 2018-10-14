@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Table, Icon, Tab, Button } from 'semantic-ui-react';
+import { Table, Icon,  Button, Rating } from 'semantic-ui-react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
@@ -56,6 +56,19 @@ class Meals extends React.Component{
     });
   }
 
+  rateMeal = (meal) => {
+    const { ratings } = meal;
+    let totalRating = 0;
+    ratings.forEach(rating => {
+      totalRating += rating.rating
+    })
+    if(ratings.length < 1){
+      return( <Rating icon='star' defaultRating={0} maxRating={5} disabled /> )
+    }
+    const averageRating = totalRating/ratings.length;
+    return( <Rating icon='star' defaultRating={averageRating} maxRating={5} disabled /> )
+  }
+
   MealsTable = meals => {
     return (
       <Table color="blue" style={{ width : '75%', margin : '0 auto' }}>
@@ -68,6 +81,7 @@ class Meals extends React.Component{
             <Table.HeaderCell>Category</Table.HeaderCell>
             <Table.HeaderCell>Amount</Table.HeaderCell>
             <Table.HeaderCell>Time Eaten</Table.HeaderCell>
+            <Table.HeaderCell>Rating</Table.HeaderCell>
             <Table.HeaderCell></Table.HeaderCell>
             <Table.HeaderCell></Table.HeaderCell>
           </Table.Row>
@@ -82,6 +96,7 @@ class Meals extends React.Component{
                   <Table.Cell>{meal.category}</Table.Cell>
                   <Table.Cell>{meal.amount}</Table.Cell>
                   <Table.Cell>{meal.timeEaten}</Table.Cell>
+                  <Table.Cell>{this.rateMeal(meal)}</Table.Cell>
                   <Table.Cell><a href={update_url} ><Icon name="edit" /></a></Table.Cell>
                   <Table.Cell onClick={() => this.delete(meal._id)}><Icon name="delete" /></Table.Cell>
                 </Table.Row>
