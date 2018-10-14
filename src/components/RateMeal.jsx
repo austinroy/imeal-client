@@ -39,12 +39,12 @@ class RateMeal extends React.Component{
 
   submit = () => {
     confirmAlert({
-      title: 'Confirm to submit',
-      message: 'Are you sure you want to update this?',
+      title: 'Confirm to rate',
+      message: 'Click Yes to submit rating',
       buttons: [
         {
           label: 'Yes',
-          onClick: () => this.submitMeal()
+          onClick: () => this.submitRating()
         },
         {
           label: 'No',
@@ -107,15 +107,15 @@ class RateMeal extends React.Component{
             <Notifications />
             <Card style={{margin : '0 auto', width : '75%'}} color='blue' >
             <header style= {{ padding : '2em' }}><h1>Rate Meal</h1></header>
-            <List style={{padding: '20px'}}>
+            <List relaxed divided style={{padding: '20px'}}>
                 <List.Item icon='food' content={"Name : " + name} />
                 <List.Item icon='database' content={"Category : " + category} />
                 <List.Item icon='linkify' content={"Amount : " + amount} />
                 <List.Item >
-                    <Rating maxRating={5} onRate={this.handleRate} />
+                    <Rating icon='star' maxRating={5} onRate={this.handleRate} />
                 </List.Item>
             </List>
-            <Button onClick={this.submitRating}>Submit Rating</Button>
+            <Button onClick={this.submitRating} color='blue'>Submit Rating</Button>
             </Card >
         </div>
       </div>
