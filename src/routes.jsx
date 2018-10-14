@@ -8,6 +8,7 @@ import SignUp from './components/SignUp';
 import jwt from 'jsonwebtoken';
 import AddMeal from './components/AddMeal';
 import UpdateMeal from './components/UpdateMeal';
+import RateMeal from './components/RateMeal';
 import GetStarted from './components/GetStarted';
 
 
@@ -34,6 +35,7 @@ const Routes = () => (
             <Route exact path="/discover" render={(props) => (!loggedIn() ? ( <Redirect to="/login"/> ): (<Discover {...props} />))} />
             <Route exact path="/addmeal" render={(props) => (!loggedIn() ? ( <Redirect to="/login"/> ): (<AddMeal {...props} />))} />
             <Route path="/updatemeal/:meal_id" render={(props) => (!loggedIn() ? ( <Redirect to="/login"/> ): (<UpdateMeal {...props} />))} />
+            <Route path="/ratemeal/:meal_id" render={(props) => (!loggedIn() ? ( <Redirect to="/login"/> ): (<RateMeal {...props} />))} />
         </Switch>
     </App>   
 )
