@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Form, Button, Modal, Header, Icon } from 'semantic-ui-react';
+import { Card, Form, Button, Radio } from 'semantic-ui-react';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import config from '../config';
@@ -21,6 +21,10 @@ class UpdateMeal extends React.Component{
     this.setState({ [input] : event.target.value})
   }
 
+  toggleVisible =  () => {
+    this.setState({ visible : !this.state.visible })
+  }
+
   updateMeal = (fetchedMeal) => {
       const { name, category, amount} = fetchedMeal;
       this.setState({
@@ -28,7 +32,6 @@ class UpdateMeal extends React.Component{
           category : category,
           amount : amount
       })
-      console.log(this.state);
   }
 
   submit = () => {
@@ -49,27 +52,26 @@ class UpdateMeal extends React.Component{
   };
 
   submitMeal = () => {
-    const { name, category, amount } = this.state;
+    const { name, category, amount, visible } = this.state;
 
     const token = localStorage.getItem('token');
     const userData = jwt.decode(token);
     const { id } = userData;
     const meal_id = this.props.match.params.meal_id;
-    console.log(config);
 
     axios.put(`${API_URL}/${id}/meals/${meal_id}`,{
       token,
       name,
       category,
-      amount
+      amount,
+      visible
     })
     .then(function (response) {
       console.log(response);
       window.location.replace('/meals');
     })
     .catch(function (error) {
-      notify.show("Error saving changes", "error");
-      console.log(error);
+      notify.show(`Error saving changes ${error}`, "error");
     });
   }
   
@@ -110,6 +112,16 @@ class UpdateMeal extends React.Component{
                 <Form.Input fluid label='Name' value={this.state.name} onChange={this.handleChange('name')}/>
                 <Form.Input fluid label='Category' value={this.state.category} onChange={this.handleChange('category')}/>
                 <Form.Input fluid label='Amount' value={this.state.amount} onChange={this.handleChange('amount')}/>
+                <Form.Field>
+                  <Radio
+                    toggle
+                    name = 'visible'
+                    label='Make this Meal Public'
+                    value='this'
+                    checked={this.state.visible}
+                    onChange={this.toggleVisible}
+                  />
+                </Form.Field>
             </Form.Group>
             <Button  color='blue' onClick={this.submit}>Submit</Button>
             </Form>
