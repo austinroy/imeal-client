@@ -29,12 +29,15 @@ class NavBar extends Component {
           <img src={logo} alt="logo" />
         </Menu.Item>
 
-        <Menu.Item
-          name='iMeal'
-        > 
-        <strong>
-          iMeal
-        </strong>
+        <Menu.Item href="/meals" name='iMeal'> 
+          <strong>
+            iMeal
+          </strong>
+        </Menu.Item>
+        <Menu.Item href="/discover" name='Discover'> 
+          <strong>
+            Discover
+          </strong>
         </Menu.Item>
 
         <Menu.Menu position='right' >
