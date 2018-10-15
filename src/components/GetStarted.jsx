@@ -21,8 +21,10 @@ class GetStarted extends React.Component{
             <Header.Subheader style={{ color: '#f4fffe', textShadow: '-1px 3px 3px rgba(150, 150, 150, 1)' }}>
                 Welcome to the iMeal App
             </Header.Subheader>
+            <br/>
             <Button href="/meals">
-                Get Started
+                Get Started <br/> 
+                <iframe width="50" height="50" src="https://lottiefiles.com/iframe/2605-cooking" frameBorder="0" allowFullScreen />
             </Button>
         </Header>
       </div>
