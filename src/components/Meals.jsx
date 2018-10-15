@@ -136,7 +136,7 @@ class Meals extends React.Component{
     const { meals } = this.state;
     return(
       <div style={{ margin : '0 auto', alignItems: 'centre', width: '100%', margin: '0 auto', textAlign: 'center' }} >
-        <header><h3>Meals</h3></header>
+        <header style={{ color: '#f4fffe',  textShadow: '-1px 3px 3px rgba(150, 150, 150, 1)' }}><h1>Meals</h1></header>
         <Notifications />
         <br/>
         {this.MealsTable(meals)}
